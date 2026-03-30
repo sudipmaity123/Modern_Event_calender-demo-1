@@ -1,0 +1,510 @@
+/* Importing fonts from Google Fonts so they can be used in the website */
+@import url('https://fonts.googleapis.com/css2?family=Alyamama:wght@300..900&family=Architects+Daughter&family=Faustina:ital,wght@0,300..800;1,300..800&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* * means selecting ALL elements in the page */
+* {
+
+    margin: 0; /* Removes default margin browsers add to elements */
+
+    padding: 0; /* Removes default internal spacing browsers add */
+
+    box-sizing: border-box; 
+    /* Makes width and height include padding and border.
+       This makes layout calculations easier */
+
+    font-family: 'poppins', sans-serif;
+    /* Sets Poppins as default font for the entire website */
+}
+
+
+/* Styling the body element which is the whole page */
+body {
+
+    display: flex; 
+    /* Makes body a flex container so children can be aligned easily */
+
+    justify-content: center;
+    /* Horizontally centers the calendar */
+
+    align-items: center;
+    /* Vertically centers the calendar */
+
+    min-height: 100vh;
+    /* Makes body height at least equal to full screen height */
+
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    /* Creates a diagonal gradient background with three colors */
+}
+
+
+/* Main calendar box */
+.calender-container {
+
+    width: 450px;
+    /* Fixed width of the calendar */
+
+    background-color: #fff;
+    /* White background for the card */
+
+    padding: 20px;
+    /* Space inside the container */
+
+    border-radius: 15px;
+    /* Makes the container corners rounded */
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    /* Creates a soft shadow below the card
+       0 = horizontal offset
+       15px = vertical offset
+       40px = blur
+       rgba = shadow color with transparency */
+
+    animation: zoom-in 1s ease forwards;
+    /* Runs the zoom animation when the calendar appears
+       1s = animation duration
+       ease = smooth speed
+       forwards = keep final state */
+}
+
+
+/* Creating animation called zoom-in */
+@keyframes zoom-in {
+
+    0% {
+        transform: scale(0);
+        /* At start the element size is 0 (invisible) */
+    }
+
+    100% {
+        transform: scale(1);
+        /* At end element grows to normal size */
+    }
+
+}
+
+/* Targeting the header inside the calendar container */
+.calender-container header {
+
+    display: flex;
+    /* Makes header a flex container
+       This allows elements inside it (date + icons)
+       to be arranged horizontally */
+
+    align-items: center;
+    /* Vertically centers items inside the header */
+
+    justify-content: space-between;
+    /* Pushes items to opposite sides
+       Date goes left, icons go right */
+
+    padding: 25px 30px 10px;
+    /* Adds space inside the header
+       Top = 25px
+       Left & Right = 30px
+       Bottom = 10px
+       This spacing improves visual balance */
+}
+
+
+/* Styling the current date text */
+.calender-container header .current-date {
+
+    font-size: 23px;
+    /* Controls size of the date text */
+
+    font-weight: 500;
+    /* Medium thickness text
+       Makes it look stronger than normal text */
+}
+
+
+/* Targeting the navigation arrow buttons */
+.calender-container header .icons span {
+
+    height: 38px;
+    /* Sets height of each icon button */
+
+    width: 38px;
+    /* Sets width of each icon button
+       Because width = height, it forms a square */
+
+    text-align: center;
+    /* Centers the arrow icon horizontally */
+
+    font-size: 20px;
+    /* Controls the arrow icon size */
+
+    line-height: 38px;
+    /* Vertically centers the icon inside the square
+       The value equals the height */
+
+    margin: 0 1px;
+    /* Adds small horizontal space between icons
+       Top & bottom = 0
+       Left & right = 1px */
+
+    border-radius: 50%;
+    /* Makes the square button circular */
+
+    cursor: pointer;
+    /* Changes mouse cursor to hand icon
+       Indicates the element is clickable */
+}
+
+
+/* Hover effect for navigation buttons */
+.calender-container header .icons span:hover {
+
+    background-color: #e6e6e6;
+    /* When user hovers mouse
+       the button background becomes light gray
+       This gives interactive feedback */
+}
+
+
+/* Styling the last icon differently */
+.calender-container header .icons span:last-child {
+
+    margin-right: -30px;
+    /* Pulls the last icon slightly to the right
+       This is sometimes used for visual alignment */
+}
+
+/* Styling the calendar section inside the container */
+.calender {
+
+    padding: 20px;
+    /* Adds space inside the calendar grid
+       This creates distance between header and calendar days */
+}
+
+
+/* Targeting all unordered lists inside calendar */
+.calender ul {
+
+    display: flex;
+    /* Makes list items appear in a horizontal row instead of vertical */
+
+    list-style: none;
+    /* Removes default bullet points from <ul> list */
+
+    flex-wrap: wrap;
+    /* Allows items to move to the next line when the row is full */
+
+    text-align: center;
+    /* Centers text horizontally inside each day box */
+}
+
+
+/* Styling week names (Mon Tue Wed etc.) */
+.calender .weeks li {
+
+    font-weight: 500;
+    /* Makes week names slightly bold
+       Helps differentiate them from normal days */
+}
+
+
+/* Styling the actual calendar day numbers */
+.calender .days li {
+
+    margin-top: 20px;
+    /* Adds space above each day number */
+
+    margin-bottom: 20px;
+    /* Adds space below each day number */
+
+    cursor: pointer;
+    /* Changes cursor to pointer
+       Shows that days are clickable */
+
+    z-index: 1;
+    /* Places the day text above other background elements
+       Useful when pseudo elements are used later */
+}
+
+
+/* Applies to ALL list items inside calendar */
+.calender ul li {
+
+    position: relative;
+    /* Makes this element a positioning reference
+       So child elements (like ::before circles) can position relative to it */
+
+    width: calc(100% / 7);
+    /* Divides container width into 7 equal parts
+       Because there are 7 days in a week */
+
+}
+
+/* Style for inactive days (days from previous or next month) */
+.calender .days li.inactive {
+
+    color: #aaa;
+    /* Makes text light gray
+       Used to visually show these days are not part of the current month */
+}
+
+
+/* Style for the currently selected day */
+.calender .days li.active {
+
+    color: #fff;
+    /* Makes the text white
+       Used when the day is highlighted with a colored background */
+}
+
+
+/* Creating a background circle behind each day number */
+.calender .days li::before {
+
+    position: absolute;
+    /* Allows the circle to be positioned relative to the day box */
+
+    content: '';
+    /* Required for pseudo-elements to appear */
+
+    left: 50%;
+    /* Move circle horizontally to the middle */
+
+    top: 50%;
+    /* Move circle vertically to the middle */
+
+    height: 40px;
+    /* Circle height */
+
+    width: 40px;
+    /* Circle width */
+
+    border-radius: 50%;
+    /* Makes the square into a circle */
+
+    transform: translate(-50%, -50%);
+    /* Perfectly centers the circle
+       because left/top were set to 50% */
+
+    z-index: -1;
+    /* Places the circle behind the day number */
+}
+
+
+/* Hover effect for days */
+.calender .days li:hover::before {
+
+    background-color: #a5a5a5;
+    /* When mouse hovers over a day
+       a gray circle appears behind it */
+}
+
+
+/* Style for the currently active day */
+.calender .days li.active::before {
+
+    background-color: #6c63ff;
+    /* Adds purple background circle behind the selected day */
+}
+
+
+/* Special border style for days that contain events */
+.event-day {
+
+    border: 2px solid #4caf50;
+    /* Adds green border around days with events */
+}
+
+
+/* Popup background overlay */
+.pop-up-event {
+
+    position: fixed;
+    /* Fixes the popup to the viewport (screen) */
+
+    top: 0;
+    /* Starts from top of screen */
+
+    left: 0;
+    /* Starts from left side of screen */
+
+    width: 100%;
+    /* Covers entire screen width */
+
+    height: 100%;
+    /* Covers entire screen height */
+
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black overlay */
+
+    display: none;
+    /* Hidden by default */
+
+    justify-content: center;
+    /* Centers popup horizontally (when display becomes flex) */
+
+    align-items: center;
+    /* Centers popup vertically */
+}
+
+
+/* Styling the popup box */
+.pop-up-event-content {
+
+    background: #fff;
+    /* White popup background */
+
+    padding: 20px;
+    /* Space inside popup */
+
+    border-radius: 10px;
+    /* Rounded corners */
+
+    width: 300px;
+    /* Fixed width of popup */
+}
+
+
+/* Popup title */
+.pop-up-event-content h3 {
+
+    margin-bottom: 10px;
+    /* Adds space below the title */
+}
+
+
+/* Input field for event name */
+.pop-up-event-content input {
+
+    width: 100%;
+    /* Makes input fill the entire popup width */
+
+    padding: 6px;
+    /* Adds internal spacing inside the input */
+
+    margin-bottom: 10px;
+    /* Adds space below input field */
+}
+
+
+/* Add event button */
+.pop-up-event-content button {
+
+    width: 100%;
+    /* Button fills popup width */
+
+    padding: 6px;
+    /* Internal button spacing */
+
+    border: none;
+    /* Removes default button border */
+
+    background: #4caf50;
+    /* Green background color */
+
+    color: #fff;
+    /* White text */
+
+    border-radius: 6px;
+    /* Rounded button corners */
+
+    margin-bottom: 5px;
+    /* Space between buttons */
+
+    cursor: pointer;
+    /* Hand cursor when hovering */
+}
+
+
+/* Event list container */
+.event-list {
+
+    margin-top: 10px;
+    /* Adds space above event list */
+
+    max-height: 120px;
+    /* Limits height of event list */
+
+    overflow-y: auto;
+    /* Adds vertical scrolling if events exceed height */
+}
+
+
+/* Each event item */
+.event-item {
+
+    display: flex;
+    /* Align event text and delete button in a row */
+
+    justify-content: space-between;
+    /* Push text left and delete button right */
+
+    margin-bottom: 5px;
+    /* Space between event items */
+
+    background: #f0f0f0;
+    /* Light gray background */
+
+    padding: 5px;
+    /* Internal spacing */
+
+    border-radius: 5px;
+    /* Rounded corners */
+}
+
+
+/* Small dot indicator under days with events */
+.event-dot {
+
+    position: absolute;
+    /* Positioned relative to the day box */
+
+    bottom: -6px;
+    /* Moves dot slightly below the day */
+
+    left: 50%;
+    /* Centers horizontally */
+
+    transform: translateX(-50%);
+    /* Perfect horizontal centering */
+
+    height: 6px;
+    /* Dot height */
+
+    width: 6px;
+    /* Dot width */
+
+    background-color: #4caf50;
+    /* Green dot color */
+
+    border-radius: 50%;
+    /* Makes it a circle */
+}
+
+
+/* Delete button for events */
+.delete-btn {
+
+    border: none;
+    /* Removes default border */
+
+    background: #f44336;
+    /* Red background */
+
+    color: #fff;
+    /* White text */
+
+    padding: 6px 12px;
+    /* Internal spacing */
+
+    border-radius: 5px;
+    /* Rounded corners */
+
+    cursor: pointer;
+    /* Pointer cursor */
+}
+
+
+/* Hover effect for delete button */
+.delete-btn:hover {
+
+    background: #e60000;
+    /* Darker red when hovering */
+}
